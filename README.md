@@ -1,8 +1,8 @@
 # Sainsmart_4WD_Obstacle_Avoid_TestBed
 This is a work in progress on developing methods for obstacle avoidance, wheel encoders, and other methodologies.  It is based on code from several sources which I will incorporate as I go.
 
-
 Code based on example code from following:
+```
  Sainsmart Obstacle Avoidance Robot:
     http://www.mkme.org/index.php/arduino-sainsmart-4wd-robot/
     https://github.com/gmossy/Sainsmart-4WD-Robot
@@ -20,5 +20,6 @@ Code based on example code from following:
     http://letsmakerobots.com/node/40502
     http://adhocnode.com/arduino-irrecv-module/
     http://arduino-info.wikispaces.com/IR-RemoteControl
+```
 
 More to follow as I add PID controls and Bubble rebound algorithm for obstacle avoidance
