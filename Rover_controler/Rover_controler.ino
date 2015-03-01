@@ -1,14 +1,28 @@
 // ---------------------------------------------------------------------------
-// This example code was used to successfully communicate with 15 ultrasonic sensors. You can adjust
-// the number of sensors in your project by changing SONAR_NUM and the number of NewPing objects in the
-// "sonar" array. You also need to change the pins for each sensor for the NewPing objects. Each sensor
-// is pinged at 33ms intervals. So, one cycle of all sensors takes 495ms (33 * 15 = 495ms). The results
-// are sent to the "oneSensorCycle" function which currently just displays the distance data. Your project
-// would normally process the sensor results in this function (for example, decide if a robot needs to
-// turn and call the turn function). Keep in mind this example is event-driven. Your complete sketch needs
-// to be written so there's no "delay" commands and the loop() cycles at faster than a 33ms rate. If other
-// processes take longer than 33ms, you'll need to increase PING_INTERVAL so it doesn't get behind.
-// ---------------------------------------------------------------------------
+// Code based on example code from following:
+// Sainsmart Obstacle Avoidance Robot:
+//    http://www.mkme.org/index.php/arduino-sainsmart-4wd-robot/
+//    https://github.com/gmossy/Sainsmart-4WD-Robot
+// Wheel Encoders - the DAGU Simple Encoder Kit
+//    http://www.bajdi.com/adding-encoders-to-those-cheap-yellow-motors/
+//    http://letsmakerobots.com/node/38636
+//    http://playground.arduino.cc/Main/ReadingRPM
+//    http://elimelecsarduinoprojects.blogspot.com/2013/06/measure-rpms-arduino.html 
+//  Compass Averaging
+//    Yamartino Library, Christopher Baker  https://github.com/SAIC-ATS/Algorithms.git
+//  Obstacle avoidance approaches
+//    http://homepages.engineering.auckland.ac.nz/~pxu012/mechatronics2013/group7/index.html
+//    http://homepages.engineering.auckland.ac.nz/~pxu012/mechatronics2013/group7/software.html
+//  IR Sensing
+//    http://letsmakerobots.com/node/40502
+//    http://adhocnode.com/arduino-irrecv-module/
+//    http://arduino-info.wikispaces.com/IR-RemoteControl
+//
+//  More to follow as I add PID controls and Bubble rebound algorithm for obstacle
+//  avoidance
+// -------------------------------------------------------------------
+
+
 #include <NewPing.h>
 #include <Servo.h>         //servo library
 #include <Wire.h>
@@ -143,7 +157,7 @@ void loop() {
       
     case 'l' : 
       telem.println("Turning Left!");
-      body_lturn(motorSpeed);
+      body_lturn(turnSpeed);
       delay(2000);
       brake();
       delay(5000);
@@ -151,7 +165,7 @@ void loop() {
       
     case 'r' :   
       telem.println("Turning Right!");
-      body_rturn(motorSpeed);
+      body_rturn(turnSpeed);
       delay(2000);
       brake();
       delay(5000);
