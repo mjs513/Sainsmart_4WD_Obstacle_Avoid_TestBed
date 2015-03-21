@@ -14,7 +14,8 @@ void decide_direction() {
    
   if(obs_array[3] == 0 && obs_array[0] == 0 && obs_array[1] == 0 && obs_array[2] == 0) {
       telem.println("NO OBSTACLES");
-      moveForward(motorSpeed);
+      //moveForward(motorSpeed);
+      moveForward();
       currentTime = millis();
       while(!IsTime(&currentTime, interval)){
          encoder_l();
@@ -28,7 +29,7 @@ void decide_direction() {
        telem.println("33% Left Blocked");
        brake();
        body_rturn(turnSpeed);
-       delay(1000);	   
+       delay(100);	  //was 1000 
        brake();
        return;
    }
@@ -36,7 +37,7 @@ void decide_direction() {
        telem.println("33% Right Blocked");
        brake();
        body_lturn(turnSpeed);
-       delay(1000);		   
+       delay(100);	//was 1000	   
        brake();
        return;
    }
@@ -44,7 +45,7 @@ void decide_direction() {
        telem.println("50% Left Blocked");
        brake(); 
        body_rturn(turnSpeed);
-       delay(1500);	   
+       delay(150);     //was 1500	   
        brake();
        return;
    }
@@ -52,7 +53,7 @@ void decide_direction() {
        telem.println("50% Right Blocked");
        brake(); 
        body_lturn(turnSpeed);
-       delay(1500);	 	   
+       delay(150);	 //was 1500	   
        brake();
        return;
    }  

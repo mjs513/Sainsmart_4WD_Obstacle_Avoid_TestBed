@@ -4,7 +4,8 @@ void decide_direction_head() {
   
   if(obs_array[0] == 1 && obs_array[1] == 1 && obs_array[2] == 1 && obs_array[3] == 1 && obs_array[4] == 1) {
        telem.println("All Directions Blocked - REVERSE");
-       moveBackward(motorSpeed);
+       //moveBackward(motorSpeed);
+       moveBackward();
        delay(500);	   
        return;
    }
@@ -38,8 +39,9 @@ void decide_direction_head() {
    }
   
   if (cm_head[4] < sidedistancelimit && cm_head[0] < sidedistancelimit && cm_head[2] < obsDist) {
-      moveBackward(motorSpeed);
-      delay(500);
+      //moveBackward(motorSpeed);
+      moveBackward();
+      delay(1000);
       return;
   } 
 }

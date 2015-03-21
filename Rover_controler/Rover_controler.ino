@@ -53,8 +53,9 @@ unsigned int cm_head[5];
 float heading;
 
 int roam = 0;
-int motorSpeed = 55;      //define motor speed parameter which will be mapped as a percentage value
-int turnSpeed = 100;      //define turning speed parameter
+int motorSpeed_right = 87;      //define motor speed parameter which will be mapped as a percentage value
+int motorSpeed_left = 75;      // these are reversed right is left when looking from behind
+int turnSpeed = 75;             //define turning speed parameter
 
 int Speed;
 
@@ -76,6 +77,7 @@ void setup() {
     
     telem.println("Ready to receive telem Commands![f, b, r, l, s, t]"); // Tell us I"m ready
     telem.println("My Commands are: ");
+    telem.println("c:carpet");
     telem.println("f:forward");
     telem.println("b:backward");
     telem.println("r:right");
@@ -127,9 +129,13 @@ void loop() {
 
     switch(val)
     {
+    case 'c' :
+      turnSpeed = 85;
+      break;
+      
     case 'f' : 
       telem.println("Rolling Forward!");
-      moveForward(motorSpeed);
+      moveForward();
       rpm_r_index = 0;  rpm_l_index = 0;
       rpm_r_avg = 0;    rpm_l_avg = 0;
       currentTime = millis();
@@ -158,29 +164,30 @@ void loop() {
     case 'l' : 
       telem.println("Turning Left!");
       body_lturn(turnSpeed);
-      delay(2000);
+      delay(200);  //was 2000
       brake();
-      delay(5000);
+      delay(2000);  //was 5000
       break;
       
     case 'r' :   
       telem.println("Turning Right!");
       body_rturn(turnSpeed);
-      delay(2000);
+      delay(200);
       brake();
-      delay(5000);
+      delay(2000);  //was 5000
       break;       
    case 'b' :    
       telem.println("Moving Backward!");
-      moveBackward(motorSpeed);
-      delay(5000);
+      //moveBackward(motorSpeed);
+      moveBackward();
+      delay(1000);
       brake();
-      delay(5000);
+      delay(2000);  //was 5000
       break;
    case 's' :      
       telem.println("Stop!");
       brake();
-      delay(5000);
+      delay(2000);  //was 5000
       break;
    case 't' :      
       telem.println("toggle Roam Mode"); 

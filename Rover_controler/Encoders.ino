@@ -2,10 +2,10 @@
 //**********************************************************
 //ecoder rpm read
 void encoder_l() { 
-   if (half_revolutions_l >= 30) { 
+   if (half_revolutions_l >= 20) { 
      //Update RPM every 20 counts, increase this for better RPM resolution,
      //decrease for faster update
-     rpm_l = 3.75*1000/(millis() - timeold_l)*half_revolutions_l;
+     rpm_l = 1000/(millis() - timeold_l)*half_revolutions_l; //3.75 Dagu
      timeold_l = millis();
      half_revolutions_l = 0;
      telem.print("Left  ");telem.println(rpm_l,DEC);
@@ -13,10 +13,10 @@ void encoder_l() {
 }
 
 void encoder_r() { 
-    if (half_revolutions_r >= 30) { 
+    if (half_revolutions_r >= 20) { 
      //Update RPM every 20 counts, increase this for better RPM resolution,
      //decrease for faster update
-     rpm_r = 3.75*1000/(millis() - timeold_r)*half_revolutions_r;
+     rpm_r = 1000/(millis() - timeold_r)*half_revolutions_r;
      timeold_r = millis();
      half_revolutions_r = 0;
      telem.print("Right  ");telem.println(rpm_r,DEC);

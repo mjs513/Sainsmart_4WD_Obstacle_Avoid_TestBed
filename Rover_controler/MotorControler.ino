@@ -1,19 +1,25 @@
   
 //******************   moveForward *******************
-void moveForward(int Speed)
+//void moveForward(int Speed)
+void moveForward()
 {
    // int motorSpeed);  // change the 15 to the Speed variable, and put Speed int the function call command arguments.
     //also add delayTime for example like this:   moveForward(int delayTime, int motorSpeed)
     
-    motorA(2, Speed);  //have motor A turn clockwise at % speed, , call motor control method
-    motorB(2, Speed);  //have motor B turn clockwise at % speed
+    //motorA(2, Speed);  //have motor A turn clockwise at % speed, , call motor control method
+    //motorB(2, Speed);  //have motor B turn clockwise at % speed
+    motorA(2, motorSpeed_right);  //have motor A turn clockwise at % speed, , call motor control method
+    motorB(2, motorSpeed_left);  //have motor B turn clockwise at % speed
     telem.println("Forward");
 }
 
-void moveBackward(int Speed)
+//void moveBackward(int Speed)
+void moveBackward()
 {
-    motorA(1, Speed);  //have motor A turn counterclockwise 
-    motorB(1, Speed);  //have motor B turn counterclockwise
+    //motorA(1, Speed);  //have motor A turn counterclockwise 
+    //motorB(1, Speed);  //have motor B turn counterclockwise
+    motorA(1, motorSpeed_right);  //have motor A turn counterclockwise 
+    motorB(1, motorSpeed_left);  //have motor B turn counterclockwise
     telem.println("Backward");
 }
 void body_rturn(int Speed)
