@@ -53,8 +53,11 @@ unsigned int cm_head[5];
 float heading;
 
 int roam = 0;
-int motorSpeed_right = 87;      //define motor speed parameter which will be mapped as a percentage value
-int motorSpeed_left = 75;      // these are reversed right is left when looking from behind
+//int motorSpeed_right = 87;      //define motor speed parameter which will be mapped as a percentage value
+//int motorSpeed_left = 75;      // these are reversed right is left when looking from behind
+int motorSpeed_right = 75;     //define motor speed parameter which will be mapped as a percentage value
+int motorSpeed_left = 87;      // 
+
 int turnSpeed = 75;             //define turning speed parameter
 
 int Speed;
@@ -76,14 +79,14 @@ void setup() {
     telem.begin(9600);
     
     telem.println("Ready to receive telem Commands![f, b, r, l, s, t]"); // Tell us I"m ready
-    telem.println("My Commands are: ");
-    telem.println("c:carpet");
-    telem.println("f:forward");
-    telem.println("b:backward");
-    telem.println("r:right");
-    telem.println("l:left");
-    telem.println("s:stop");
-    telem.println("t:toggleRoam");    
+    //telem.println("My Commands are: ");
+    //telem.println("c:carpet");
+    //telem.println("f:forward");
+    //telem.println("b:backward");
+    //telem.println("r:right");
+    //telem.println("l:left");
+    //telem.println("s:stop");
+    //telem.println("t:toggleRoam");    
     
     //compass.init();
     //compass.enableDefault();
@@ -158,36 +161,36 @@ void loop() {
       }
       telem.println(rpm_l_avg/rpm_l_index); telem.println(rpm_r_avg/rpm_r_index); 
       brake();
-      delay(5000);
+      delay(1000);
       break;
       
     case 'l' : 
       telem.println("Turning Left!");
       body_lturn(turnSpeed);
-      delay(200);  //was 2000
+      delay(400);  //was 2000
       brake();
-      delay(2000);  //was 5000
+      delay(1000);  //was 5000
       break;
       
     case 'r' :   
       telem.println("Turning Right!");
       body_rturn(turnSpeed);
-      delay(200);
+      delay(400);
       brake();
-      delay(2000);  //was 5000
+      delay(1000);  //was 5000
       break;       
    case 'b' :    
       telem.println("Moving Backward!");
       //moveBackward(motorSpeed);
       moveBackward();
-      delay(1000);
+      delay(700);
       brake();
-      delay(2000);  //was 5000
+      delay(1000);  //was 5000
       break;
    case 's' :      
       telem.println("Stop!");
       brake();
-      delay(2000);  //was 5000
+      delay(1000);  //was 5000
       break;
    case 't' :      
       telem.println("toggle Roam Mode"); 

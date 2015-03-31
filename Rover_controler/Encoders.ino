@@ -8,7 +8,7 @@ void encoder_l() {
      rpm_l = 1000/(millis() - timeold_l)*half_revolutions_l; //3.75 Dagu
      timeold_l = millis();
      half_revolutions_l = 0;
-     telem.print("Left  ");telem.println(rpm_l,DEC);
+     telem.println("Left  ");telem.println(rpm_l,DEC);
    }
 }
 
@@ -19,7 +19,7 @@ void encoder_r() {
      rpm_r = 1000/(millis() - timeold_r)*half_revolutions_r;
      timeold_r = millis();
      half_revolutions_r = 0;
-     telem.print("Right  ");telem.println(rpm_r,DEC);
+     telem.println("Right  ");telem.println(rpm_r,DEC);
    }
 }
 

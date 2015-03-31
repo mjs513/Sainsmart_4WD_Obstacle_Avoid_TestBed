@@ -23,3 +23,8 @@ Code based on example code from following:
 ```
 
 More to follow as I add PID controls and Bubble rebound algorithm for obstacle avoidance
+----------------------------------------------------------
+
+3-31-15
+
+Moved away from the Sainsmart 4wd test bed.  Just not enough torgue if I want to run it on a carpet. Was even slipping on a un-even kitchen floor.  Used a differential platform that I picked up off ebay.  Built a platform, took the electronics from the sainsmart and mounted it on board and had a new platform to experiment with.   As a result was able to get the code working so that it has now stopped crashing into corners, however, need to work on two situations: 1) getting caught on a corner (have to take robot width into account and (2) picking the best direction to move in.

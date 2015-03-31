@@ -1,6 +1,11 @@
 
 //Hardware set the pins
 // L298D Motor Controller
+/********************************************************
+Following lines assume right as you view from the front, uncomment lines
+following this section assumes viewing from behind as if you are driving
+a car.
+*********************************************************
 #define ENA 5  //enable A on pin 5 (must be a pwm pin)   Speed Control
 #define ENB 3  //enable B on pin 3 (must be a pwm pin)   Speed Control
 
@@ -20,6 +25,26 @@ const int l_int = 5;
 const int r_int = 4;
 const int l_encoder = 18;
 const int r_encoder = 19;
+*************************************************/
+#define ENA 3  //enable A on pin 5 (must be a pwm pin)   Speed Control
+#define ENB 5  //enable B on pin 3 (must be a pwm pin)   Speed Control
+
+#define IN1 4  //IN1 on pin controls Motor A  Motor A Right Motor (view from front)
+#define IN2 2  //IN2 on pin controls Motor A
+#define IN3 7  //IN3 on pin conrtols Motor B  Motor B Left Motor (view from front)
+#define IN4 6  //IN4 on pin controls Motor B 
+
+
+const int rightmotorpin1 = IN3;  //signal output 1 of Dc motor 
+const int rightmotorpin2 = IN4;  //signal output 2 of Dc motor 
+const int leftmotorpin1  = IN1;  //signal output 3 of Dc motor 
+const int leftmotorpin2  = IN2;  //signal output 4 of Dc motor 
+
+//set interrupts and encoder pins
+const int l_int = 4;
+const int r_int = 5;
+const int l_encoder = 19;
+const int r_encoder = 18;
 
 const int HeadServopin = 8; // signal input of headservo
 //const int head_tilt_pin = 3; // signal input for headservo tilt

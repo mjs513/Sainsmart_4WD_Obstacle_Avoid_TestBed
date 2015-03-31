@@ -16,20 +16,28 @@ void decide_direction() {
       telem.println("NO OBSTACLES");
       //moveForward(motorSpeed);
       moveForward();
-      currentTime = millis();
-      while(!IsTime(&currentTime, interval)){
-         encoder_l();
-         encoder_r();
+      //currentTime = millis();
+      //while(!IsTime(&currentTime, interval)){
+      //   encoder_l();
+      //   encoder_r();
+      //}
+      
+      while(obs_array[3] != 1 || obs_array[0] != 1 || obs_array[1] != 1 || obs_array[2] != 1) {
+        //Cycle through obstacle avoidance sensors for emergency stop
+        read_sensors();
+        oneSensorCycle();
+        if(obs_array[3] == 1 || obs_array[0] == 1 || obs_array[1] == 1 || obs_array[2] == 1) {
+          brake();
+          return;
+        }
       }
-      brake();
-      return;
    }
    
   if(obs_array[0] == 1  && obs_array[1] == 0  && obs_array[2] == 0) {
        telem.println("33% Left Blocked");
        brake();
        body_rturn(turnSpeed);
-       delay(100);	  //was 1000 
+       delay(400);	  //was 1000 
        brake();
        return;
    }
@@ -37,7 +45,7 @@ void decide_direction() {
        telem.println("33% Right Blocked");
        brake();
        body_lturn(turnSpeed);
-       delay(100);	//was 1000	   
+       delay(400);	//was 1000	   
        brake();
        return;
    }
@@ -45,7 +53,7 @@ void decide_direction() {
        telem.println("50% Left Blocked");
        brake(); 
        body_rturn(turnSpeed);
-       delay(150);     //was 1500	   
+       delay(700);     //was 1500	   
        brake();
        return;
    }
@@ -53,7 +61,7 @@ void decide_direction() {
        telem.println("50% Right Blocked");
        brake(); 
        body_lturn(turnSpeed);
-       delay(150);	 //was 1500	   
+       delay(700);	 //was 1500	   
        brake();
        return;
    }  

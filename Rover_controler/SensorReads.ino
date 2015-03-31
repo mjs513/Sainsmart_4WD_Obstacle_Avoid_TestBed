@@ -1,20 +1,20 @@
 void oneSensorCycle() { // Sensor ping cycle complete, do something with the results.
-  for (uint8_t i = 0; i < SONAR_NUM; i++) {
-    telem.print(i);
-    telem.print("=");
-    telem.print(cm[i]);
-    telem.print("cm ");
-  }
-  telem.println();
+  //for (uint8_t i = 0; i < SONAR_NUM; i++) {
+  //  telem.print(i);
+  //  telem.print("=");
+  //  telem.print(cm[i]);
+  //  telem.print("cm ");
+  // }
+  //telem.println();
   for (uint8_t i = 0; i < SONAR_NUM; i++) {
     if(cm[i] < obsDist) {
       obs_array[i] = 1;
     } else {
       obs_array[i] = 0;} 
-    telem.print(obs_array[i]);
-    telem.print("  ");
+    //telem.print(obs_array[i]);
+    //telem.print("  ");
   }
-  telem.println();
+  //telem.println();
 }
 
 void read_sensors() {
@@ -37,7 +37,7 @@ void read_sensors() {
     uS = sonarhd.ping();
     cm[3] = uS / US_ROUNDTRIP_CM;
     delay(PING_INTERVAL);		
-/*
+
     compass.read();
     heading = compass.heading();
     yamartino.add(heading);
@@ -45,7 +45,7 @@ void read_sensors() {
     telem.print("Average Wind Direction: ");
     telem.println(yamartino.averageHeading());
     telem.println("");
-    */
+
 }
 
 
