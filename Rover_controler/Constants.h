@@ -1,6 +1,6 @@
 
-#define telem Serial3
-//#define telem Serial
+#define telem Serial
+//#define telem Serial3
 
 //sets up servo angles
 const int head_fwd = 90; 

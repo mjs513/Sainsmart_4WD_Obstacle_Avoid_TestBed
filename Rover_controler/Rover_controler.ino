@@ -28,11 +28,12 @@
 #include <Wire.h>
 #include <LSM303.h>
 #include <Yamartino.h>
+#include <Streaming.h>
 
 #include "Constants.h"
 #include "IOpins.h"
 
-Yamartino yamartino(40);
+Yamartino yamartino(20);
 LSM303 compass;
 
 Servo headservo;
@@ -50,13 +51,13 @@ const int obsDist = 47;
 const int sidedistancelimit = 45;
 unsigned int cm_head[5];
 
-float heading;
+float aheading;
 
 int roam = 0;
 //int motorSpeed_right = 87;      //define motor speed parameter which will be mapped as a percentage value
 //int motorSpeed_left = 75;      // these are reversed right is left when looking from behind
-int motorSpeed_right = 75;     //define motor speed parameter which will be mapped as a percentage value
-int motorSpeed_left = 87;      // 
+int motorSpeed_right = 67;     //define motor speed parameter which will be mapped as a percentage value
+int motorSpeed_left = 84;      // offset required for differences in motor speed
 
 int turnSpeed = 75;             //define turning speed parameter
 
@@ -77,6 +78,22 @@ int Speed;
  
 void setup() {
     telem.begin(9600);
+    Wire.begin();
+    
+    compass.init();
+    compass.enableDefault();
+  
+    /*
+    Calibration values; the default values of +/-32767 for each axis
+    lead to an assumed magnetometer bias of 0. Use the Calibrate example
+    program to determine appropriate values for your particular unit.
+    */
+    compass.m_min = (LSM303::vector<int16_t>){-3061,  -2357,  -2424};
+    compass.m_max = (LSM303::vector<int16_t>){+2839,  +3278,  +3135}; 
+	
+    compass.read();
+    aheading = compass.heading();
+    delay(100);
     
     telem.println("Ready to receive telem Commands![f, b, r, l, s, t]"); // Tell us I"m ready
     //telem.println("My Commands are: ");
@@ -88,17 +105,6 @@ void setup() {
     //telem.println("s:stop");
     //telem.println("t:toggleRoam");    
     
-    //compass.init();
-    //compass.enableDefault();
-  
-    /*
-    Calibration values; the default values of +/-32767 for each axis
-    lead to an assumed magnetometer bias of 0. Use the Calibrate example
-    program to determine appropriate values for your particular unit.
-    */
-    //compass.m_min = (LSM303::vector<int16_t>){-3061,  -2357,  -2424};
-    //compass.m_max = (LSM303::vector<int16_t>){+2839,  +3278,  +3135}; 
-	
     //signal output port
     //set all of the outputs for the motor driver
     pinMode(IN1, OUTPUT);       // Motor Driver 
@@ -129,7 +135,7 @@ void loop() {
     if (telem.available() > 0)
     {
     int val = telem.read();	//read telem input commands
-
+  
     switch(val)
     {
     case 'c' :
@@ -144,12 +150,23 @@ void loop() {
       currentTime = millis();
       while(!IsTime(&currentTime, interval)){
         //Read encoders and calculate RPM
-         encoder_l();   encoder_r();
-         rpm_r_index++; rpm_l_index++;
-         rpm_r_avg = rpm_r_avg + rpm_r; 
-         rpm_l_avg = rpm_l_avg + rpm_l;
-         telem.println(rpm_l_avg/rpm_l_index); telem.println(rpm_r_avg/rpm_r_index);
-         
+         encoder_l();
+         encoder_r();
+         if(rpm_r !=0) {
+           rpm_r_index++; 
+           rpm_r_avg = rpm_r_avg + rpm_r;           
+         }
+         if(rpm_l != 0) { 
+           rpm_l_index++;
+           rpm_l_avg = rpm_l_avg + rpm_l;
+        }
+        if(rpm_l != 0 || rpm_r !=0) {
+          ///telem.print("AVERAGE (L/R):  "); telem.print(rpm_l_avg/rpm_l_index); 
+          //telem.print("    "); telem.println(rpm_r_avg/rpm_r_index);
+          //telem.println();
+          telem << "Average (L/R):  " << rpm_l_avg/rpm_l_index << " / " << rpm_r_avg/rpm_r_index << endl;
+        }
+          
          //Cycle through obstacle avoidance sensors for emergency stop
          read_sensors();
          oneSensorCycle();
@@ -159,7 +176,7 @@ void loop() {
            return; 
          }
       }
-      telem.println(rpm_l_avg/rpm_l_index); telem.println(rpm_r_avg/rpm_r_index); 
+      telem.println(rpm_l_avg/rpm_l_index); telem.println(rpm_r_avg/rpm_r_index); telem.println();
       brake();
       delay(1000);
       break;
@@ -222,10 +239,9 @@ void toggleRoam(){
 }
 
 void goRoam() {  
-    read_sensors();
-    // The rest of your code would go here.
-    oneSensorCycle(); // Sensor ping cycle complete, do something with the results.
-    
+  
+    read_sensors();   
+    oneSensorCycle(); 
     decide_direction();
 }
 

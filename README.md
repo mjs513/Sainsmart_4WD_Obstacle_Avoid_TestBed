@@ -24,6 +24,13 @@ Code based on example code from following:
 
 More to follow as I add PID controls and Bubble rebound algorithm for obstacle avoidance
 ----------------------------------------------------------
+4-3-15
+
+1) adjusted left right motor speeds based on encoder to keep it going as straight as possible
+2) compass is working.  Actually using an Altimu-10 v3 IMU, but just getting compass readings.  Eventually will expand to get attidude as well.
+3) Incorporated the Streaming.h library so I can use standared c++ cout methods for printing.  Now have to fix remaing code to make use of it.
+4) Next step is compass control and the bubble band algorithm. Also have to fix back up so it will backup straight and adjust some of the delays since I slowed the motor up a little bit.
+
 
 3-31-15
 
