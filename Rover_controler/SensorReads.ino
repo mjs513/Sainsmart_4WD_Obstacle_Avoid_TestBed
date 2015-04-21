@@ -1,3 +1,25 @@
+//    Sketch to test various technicques in robotic car design such as
+//    obstacle detection and avoidance, compass as turn guide,
+//    motor control, etc.
+//    Copyright (C) 2015  Michael J Smorto
+//    https://github.com/mjs513/Sainsmart_4WD_Obstacle_Avoid_TestBed.git
+//    FreeIMU@gmail.com
+//
+//    This program is free software; you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation; either version 2 of the License, or
+//    any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License along
+//    with this program; if not, write to the Free Software Foundation, Inc.,
+//    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+//============================================================================
+
 void oneSensorCycle() { // Sensor ping cycle complete, do something with the results.
   //for (uint8_t i = 0; i < SONAR_NUM; i++) {
   //  telem.print(i);
@@ -40,17 +62,23 @@ void read_sensors() {
     cm[3] = uS / US_ROUNDTRIP_CM;
     delay(PING_INTERVAL);
     
-    compass.read();
-    aheading = compass.heading();
-    yamartino.add(aheading);
-    aheading = yamartino.averageHeading();
-    //telem.print("Average Wind Direction: ");
-    //telem.println(yamartino.averageHeading());
-    //telem.println(aheading);
-    //telem.println("");		
+    //compass_update();	
 
 }
 
+void compass_update() {
+    for(int i = 0; i < compass_avg_cnt; i++) {
+      compass.read();
+      //float aheading = compass.heading();
+      yamartino.add(compass.heading());
+      delay(20);
+      //telem.print("Average Wind Direction: ");
+      //telem.println(yamartino.averageHeading());
+      //telem.println(aheading);
+      //telem.println("");
+    }
+    yar_heading = yamartino.averageHeading();
+  }  
 
 void head_distance() {
     headservo.write(head_lft);
@@ -88,7 +116,6 @@ void head_distance() {
   }
   telem.println();
   
-  decide_direction_head();
+  return;
 }
-
 

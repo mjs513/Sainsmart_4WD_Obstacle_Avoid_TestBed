@@ -1,6 +1,36 @@
+//    Sketch to test various technicques in robotic car design such as
+//    obstacle detection and avoidance, compass as turn guide,
+//    motor control, etc.
+//    Copyright (C) 2015  Michael J Smorto
+//    https://github.com/mjs513/Sainsmart_4WD_Obstacle_Avoid_TestBed.git
+//    FreeIMU@gmail.com
+//
+//    This program is free software; you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation; either version 2 of the License, or
+//    any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License along
+//    with this program; if not, write to the Free Software Foundation, Inc.,
+//    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+//============================================================================
 
-#define telem Serial
+#define telem Serial3
 //#define telem Serial3
+
+//Enable 400Khz I2C bus speed
+const boolean fastmode = true;
+
+//int motorSpeed_right = 87;      //define motor speed parameter which will be mapped as a percentage value
+//int motorSpeed_left = 75;      // these are reversed right is left when looking from behind
+const int motorSpeed_right = 79;     //define motor speed parameter which will be mapped as a percentage value
+const int motorSpeed_left = 82;      // offset required for differences in motor speed
+const int turnSpeed = 85;             //define turning speed parameter, was 75
 
 //sets up servo angles
 const int head_fwd = 90; 
@@ -15,3 +45,15 @@ const int head_rdiag = 135;
                                                 // was set to 33
 // the interval in mS 
 #define interval 7500
+
+//compass reads
+const int compass_avg_cnt = 20;
+
+//Bubble Rebound Parameters
+const float V = 21;
+const float Ki = 0.2;
+const int N = 10;
+const int angle = 20;  //degrees
+
+
+

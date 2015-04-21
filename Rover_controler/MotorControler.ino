@@ -1,4 +1,25 @@
-  
+//    Sketch to test various technicques in robotic car design such as
+//    obstacle detection and avoidance, compass as turn guide,
+//    motor control, etc.
+//    Copyright (C) 2015  Michael J Smorto
+//    https://github.com/mjs513/Sainsmart_4WD_Obstacle_Avoid_TestBed.git
+//    FreeIMU@gmail.com
+//
+//    This program is free software; you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation; either version 2 of the License, or
+//    any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License along
+//    with this program; if not, write to the Free Software Foundation, Inc.,
+//    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+//============================================================================
+
 //******************   moveForward *******************
 //void moveForward(int Speed)
 void moveForward()
@@ -22,16 +43,16 @@ void moveBackward()
     motorB(1, motorSpeed_left);  //have motor B turn counterclockwise
     telem.println("Backward");
 }
-void body_rturn(int Speed)
+void body_rturn()
 {
-   motorA(1, Speed);  //have motor A turn counterclockwise 
-   motorB(2, Speed);  //have motor B turn clockwise 
+   motorA(1, motorSpeed_right);  //have motor A turn counterclockwise 
+   motorB(2, motorSpeed_left);  //have motor B turn clockwise 
    telem.println("Right");
 }
-   void body_lturn(int Speed)
+   void body_lturn()
 {
-   motorA(2, Speed);  //have motor A turn clockwise
-   motorB(1, Speed);  //have motor B turn counterclockwise 
+   motorA(2, motorSpeed_right);  //have motor A turn clockwise
+   motorB(1, motorSpeed_left);  //have motor B turn counterclockwise 
    telem.println("Left");
 }
 

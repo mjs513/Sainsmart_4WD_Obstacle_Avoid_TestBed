@@ -24,6 +24,14 @@ Code based on example code from following:
 
 More to follow as I add PID controls and Bubble rebound algorithm for obstacle avoidance
 ----------------------------------------------------------
+4-20-15
+1) Added license
+2) Embedded test code for bubble rebound which is still a work in progress
+3) Added code to increse I2C bus speed to 400khz
+4) Added code to change default altimu10 v3 default settings
+5) In process of generating calibration code for time delay versus degrees for compass code - will embed charts shortly.
+6) Changed motor control code so you can have different speeds for left and right turn
+
 4-3-15
 
 1) adjusted left right motor speeds based on encoder to keep it going as straight as possible
