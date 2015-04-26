@@ -166,7 +166,7 @@ void Select_Direction() {
       if(delay_time < 50) delay_time = 50;
       body_rturn(); 
     } else {
-      fit_time = 0.00001*pow(rebound_angle,3)-0.015*pow(rebound_angle,2)+9.7223*rebound_angle+32.217;
+      fit_time = -0.00001*pow(rebound_angle,3)-0.015*pow(rebound_angle,2)-9.7223*rebound_angle+32.217;
       delay_time = ceil(fit_time);
       telem << "Curve Fit (CCW): " << fit_time << endl;      
       if(delay_time < 50) delay_time = 50;
