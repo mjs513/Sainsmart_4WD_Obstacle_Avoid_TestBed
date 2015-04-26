@@ -29,7 +29,7 @@ const boolean fastmode = true;
 //int motorSpeed_right = 87;      //define motor speed parameter which will be mapped as a percentage value
 //int motorSpeed_left = 75;      // these are reversed right is left when looking from behind
 const int motorSpeed_right = 79;     //define motor speed parameter which will be mapped as a percentage value
-const int motorSpeed_left = 82;      // offset required for differences in motor speed
+const int motorSpeed_left = 79;      // offset required for differences in motor speed,82
 const int turnSpeed = 85;             //define turning speed parameter, was 75
 
 //sets up servo angles
@@ -52,8 +52,9 @@ const int compass_avg_cnt = 20;
 //Bubble Rebound Parameters
 const float V = 21;
 const float Ki = 0.2;
-const int N = 10;
-const int angle = 20;  //degrees
+
+const int N = 12;  //was 10, 12 for 12 readings
+const int angle = 15;  //was 20 degrees
 
 
 

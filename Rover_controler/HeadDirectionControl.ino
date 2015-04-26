@@ -20,85 +20,21 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //============================================================================
 
-unsigned int pos1 = 0;    // variable to store the servo position
-int delta_t, blocked;
-float numer, denom;
-unsigned int sonar_dist[9];
-float bubble_boundary;
 
 void decide_direction_head() {
   brake();
-  // establish variables for duration of the ping, 
-  // and the distance result in inches and centimeters:
-  int start_time = millis();
-  
-  for(int i =0; i < N; i++)     // goes from 180 degrees to 0 degrees 
-  {
-    headservo.write(i*angle);               // tell servo to go to position in variable 'pos' 
-    delay(550);                             // waits 15ms for the servo to reach the position 
-   
-    unsigned int uS = sonarhd.ping(); 
-    sonar_dist[i] = uS / US_ROUNDTRIP_CM;
-    if(sonar_dist[i] == 0) sonar_dist[i] = 999;
-    telem << ( sonar_dist[i]) << ", ";
-    delay(60); 
-  } 
-  telem << endl;
-  
-  float alpha0 = PI/N;
-  numer = 0;  denom =0;
-  for(int i=-N/2; i <= N/2; i++) {
-      numer = numer + radians(alpha0*i)*sonar_dist[i];
-      denom = denom + sonar_dist[i];
-  }
-  
-  float rebound_angle = degrees(numer/denom);
-  telem << "REBOUND ANGLE = " << rebound_angle << " degrees" << endl;  
-
-  compass_update(); 
-  telem << "Current heading: " << yar_heading << endl; 
-  
-  float new_heading = yar_heading + rebound_angle;
-  telem << "Actual calc for new heading: " << new_heading << endl;
-  
-  if(new_heading > 360.0f)
-     new_heading -= 360.0f;
-   else if(new_heading < 0.0f)
-     new_heading = 360.0f - new_heading;
-  
-  boolean clockwise;
-  clockwise = true;
-  
-  float angle_delta = abs(new_heading - yar_heading);
-  clockwise = (rebound_angle >= 0.0f);
-  
-  telem << "New Heading: " << new_heading << "  Clockwise: " << clockwise << endl;
-  telem << "Angle delta: " << angle_delta << endl;
-  telem << endl;
-  /*
-  while(angle_delta > 0.5f){
-    if(clockwise)
-      body_rturn(65);
-     else      
-      body_lturn(65);
-    compass_update();
-    angle_delta = abs(new_heading - yar_heading);
-  }
-  brake();
-  */
-  headservo.write(head_fwd);
 
   head_distance();
   
   if(obs_array[0] == 1 && obs_array[1] == 1 && obs_array[2] == 1 && obs_array[3] == 1 && obs_array[4] == 1) {
-       telem.println("All Directions Blocked - REVERSE");
-       //moveBackward(motorSpeed);
+       telem.println("All Directions Blocked - Rebound action");
+       moveBackward();
        moveBackward();
        delay(500);	   
        return;
    }
    
-  if(cm_head[0] > cm_head[4] &&  cm_head[0] > cm_head[2] ) {
+  /*if(cm_head[0] > cm_head[4] &&  cm_head[0] > cm_head[2] ) {
        telem.println("Head - turn left ");
        body_lturn();
        delay(700);	 	   
@@ -132,6 +68,6 @@ void decide_direction_head() {
       delay(500);
       return;
   } 
-
+ */
 }
 

@@ -21,23 +21,20 @@
 //============================================================================
 
 void oneSensorCycle() { // Sensor ping cycle complete, do something with the results.
-  //for (uint8_t i = 0; i < SONAR_NUM; i++) {
-  //  telem.print(i);
-  //  telem.print("=");
-  //  telem.print(cm[i]);
-  //  telem.print("cm ");
-  // }
-  //telem.println();
+  telem << "Distance: ";
+  for (uint8_t i = 0; i < SONAR_NUM; i++) {
+    telem <<  cm[i] << "cm, ";
+   }
+  telem << endl;
   
   for (uint8_t i = 0; i < SONAR_NUM; i++) {
     if(cm[i] < obsDist) {
       obs_array[i] = 1;
     } else {
       obs_array[i] = 0;} 
-    //telem.print(obs_array[i]);
-    //telem.print("  ");
+    //telem << obs_array[i] << ", ";
   }
-  //telem.println();
+  //telem << endl << endl;
   
 }
 
@@ -78,6 +75,7 @@ void compass_update() {
       //telem.println("");
     }
     yar_heading = yamartino.averageHeading();
+   
   }  
 
 void head_distance() {

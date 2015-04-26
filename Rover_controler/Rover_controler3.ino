@@ -41,8 +41,26 @@
 //
 //  More to follow as I add PID controls and Bubble rebound algorithm for obstacle
 //  avoidance
+//
+//  Advance obstacle avoidance algoritm:
+//    Susnea, I., Viorel Minzu, Grigore Vasiliu. Simple, real-time obstacle
+//    avoidance algorithm for mobile robots. in 8th WSEAS International
+//    Conference on Computational intelligence, man-machine systems and
+//    cybernetics (CIMMACS'09) 2009
+//    http://www.wseas.us/e-library/conferences/2009/tenerife/CIMMACS/CIMMACS-03.pdf
+//
+//    Ulrich, I., and Borenstein, J., "VFH+: Reliable Obstacle
+//    Avoidance for Fast Mobile Robots", IEEE Int. Conf. on Robotics and Automation, May 1998,
+//    pp. 1572-1577. http://www.cs.cmu.edu/~iwan/papers/vfh+.pdf
+//
+//    VFH Gap routine extracted from Orca: Components for Robotics, vfh algorithm
+//    http://orca-robotics.sourceforge.net/
+//
 // -------------------------------------------------------------------
 
+#include <StandardCplusplus.h>
+#include <vector>
+#include <utility>
 
 #include <NewPing.h>
 #include <Servo.h>         //servo library
@@ -71,8 +89,6 @@ uint8_t obs_array[5];
 const int obsDist = 47;
 const int sidedistancelimit = 45;
 unsigned int cm_head[5];
-
-float yar_heading;
 
 int roam = 0;
 
