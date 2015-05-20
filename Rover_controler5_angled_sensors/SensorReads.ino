@@ -63,9 +63,9 @@ void read_sensors() {
     cm[3] = uS / US_ROUNDTRIP_CM;
     delay(PING_INTERVAL);
 
-    //for (uint8_t i = 0; i < SONAR_NUM; i++) {
-    //  if(cm[i] == 0) cm[i] = MAX_DISTANCE;
-    // }
+    for (uint8_t i = 0; i < SONAR_NUM; i++) {
+      if(cm[i] == 0) cm[i] = MAX_DISTANCE;
+     }
     
     //compass_update();	
 

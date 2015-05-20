@@ -78,7 +78,7 @@ void Select_Direction() {
 
       unsigned int uS = sonarhd.ping_median(); 
       sonar_dist[i] = uS / US_ROUNDTRIP_CM;
-      //if(sonar_dist[i] == 0) sonar_dist[i] = 500;
+      if(sonar_dist[i] == 0) sonar_dist[i] = MAX_DISTANCE;
 
       /////////////////////////////////////////////////////////
       //
