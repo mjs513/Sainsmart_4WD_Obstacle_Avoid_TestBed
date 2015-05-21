@@ -76,3 +76,8 @@ NewPing sonarlc(32, 33, MAX_DISTANCE); // NewPing setup of pins and maximum dist
 NewPing sonarlr(28, 29, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
 NewPing sonarhd(49, 48, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
 
+
+//IR Sensor Pins
+const int leftIRsensor = A0;
+const int rightIRsensor = A1;
+

@@ -67,6 +67,9 @@ void read_sensors() {
       if(cm[i] == 0) cm[i] = MAX_DISTANCE;
      }
     
+    leftIRdistance = leftIRaverage(20);
+    rightIRdistance = rightIRaverage(20);
+    
     //compass_update();	
 
 }
@@ -123,5 +126,26 @@ void head_distance() {
   telem.println();
   
   return;
+}
+
+	
+int leftIRaverage(int average_count) {
+	int sum = 0;
+	for (int i=0; i<average_count; i++) {
+		int sensor_value = analogRead(leftIRsensor);  //read the sensor value
+		int distance_cm = pow(3027.4/sensor_value, 1.2134); //convert readings to distance(cm)
+		sum = sum + distance_cm;
+	}
+	return(sum/average_count);  
+}
+	
+int rightIRaverage(int average_count) {
+	int sum = 0;
+	for (int i=0; i<average_count; i++) {
+		int sensor_value = analogRead(rightIRsensor);  //read the sensor value
+		int distance_cm = pow(3027.4/sensor_value, 1.2134); //convert readings to distance(cm)
+		sum = sum + distance_cm;
+	}
+	return(sum/average_count);  
 }
 

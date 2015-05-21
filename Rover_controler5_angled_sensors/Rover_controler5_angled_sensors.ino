@@ -100,6 +100,8 @@ const int obsDist = 47;
 const int sidedistancelimit = 45;
 unsigned int cm_head[5];
 
+int leftIRdistance, rightIRdistance;
+
 int fowardheadThreshold = 55;  		//30.48,41,51		headservo - obs[3]
 int lcThreshold = 50; 			//40.64,38,45      sonarlc obs[1]
 int sideSensorThreshold = 45;		//50.8,38,45,41	sonarll (points to right) obs[0]
