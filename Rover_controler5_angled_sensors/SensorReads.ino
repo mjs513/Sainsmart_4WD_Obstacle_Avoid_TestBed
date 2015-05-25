@@ -67,8 +67,10 @@ void read_sensors() {
       if(cm[i] == 0) cm[i] = MAX_DISTANCE;
      }
     
-    leftIRdistance = leftIRaverage(20);
-    rightIRdistance = rightIRaverage(20);
+    leftIRdistance = leftIRaverage(3);
+    rightIRdistance = rightIRaverage(3);
+    
+    telem << "IR Distances: " << leftIRdistance << " -- " << rightIRdistance << endl;
     
     //compass_update();	
 

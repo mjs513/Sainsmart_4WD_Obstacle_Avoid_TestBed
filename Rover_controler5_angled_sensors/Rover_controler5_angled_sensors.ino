@@ -102,9 +102,9 @@ unsigned int cm_head[5];
 
 int leftIRdistance, rightIRdistance;
 
-int fowardheadThreshold = 55;  		//30.48,41,51		headservo - obs[3]
-int lcThreshold = 50; 			//40.64,38,45      sonarlc obs[1]
-int sideSensorThreshold = 45;		//50.8,38,45,41	sonarll (points to right) obs[0]
+int fowardheadThreshold = 52;  		//30.48,41,51,52		headservo - obs[3]
+int lcThreshold = 50; 			//40.64,38,45,50      sonarlc obs[1]
+int sideSensorThreshold = 45;		//50.8,38,45,41,45	sonarll (points to right) obs[0]
 //							sonarlr (points to left) obs[2]
 int backupSensorThreshold = 35;		//17.78 - not implemented yet
 

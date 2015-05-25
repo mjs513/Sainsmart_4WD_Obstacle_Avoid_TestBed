@@ -79,5 +79,5 @@ NewPing sonarhd(49, 48, MAX_DISTANCE); // NewPing setup of pins and maximum dist
 
 //IR Sensor Pins
 const int leftIRsensor = A0;
-const int rightIRsensor = A1;
+const int rightIRsensor = A2;
 

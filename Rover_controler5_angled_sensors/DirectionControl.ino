@@ -25,20 +25,23 @@ void decide_direction() {
    
    // No forward obstacles
    if(cm[3] > fowardheadThreshold && cm[0] > sideSensorThreshold && 
-                 cm[1] > lcThreshold && cm[2] > sideSensorThreshold) {
+                 cm[1] > lcThreshold && cm[2] > sideSensorThreshold &&
+				 leftIRdistance > lcThreshold && rightIRdistance > lcThreshold) {
 			nextMove = "Straight";
                         telem << "(DC) Next Move Straight" << endl;
                  }
    // If everything is blocked in the forward direction lets backupSensorThreshold
    // and run the Bubble rebound/VFH routing
-   if(cm[0] < sideSensorThreshold && cm[2] <  sideSensorThreshold && 
-				  cm[3] < fowardheadThreshold && cm[1] < lcThreshold) {
+   if((cm[0] < sideSensorThreshold && cm[2] < sideSensorThreshold && 
+				  cm[3] < fowardheadThreshold && cm[1] < lcThreshold) || 
+				  (leftIRdistance < lcThreshold && rightIRdistance < lcThreshold)){
 			nextMove = "Backup";
                         telem << "(DC) Next Move Backup" << endl;
 		        }
    // Do any of the front facing range sensors detect an obstacle closer than their
    // threshold?  If so, then prepare to turn left or right.
-   if (cm[3] < fowardheadThreshold || cm[1] < lcThreshold )
+   if (cm[3] < fowardheadThreshold || cm[1] < lcThreshold || 
+		leftIRdistance < lcThreshold || rightIRdistance < lcThreshold)
    {
       nextMove = "LeftRight";
       telem << "(DC) Next Move LeftRight [fwd sensors blocked]" << endl;
@@ -72,21 +75,7 @@ void decide_direction() {
    // Reset the closest obstacle distance to a large value.
    minDistance = 10000;
    
-   // How close is the closest object in front of us?  Note how we subtract
-   // 4" from the front center IR sensor (under the robot) and 5" from the
-   // the tower IR sensor.  This is because these two sensors are offset by
-   // these distances back from the front of the robot.
-   //minDistance = min(obs_array[0], obs_array[2], obs_array[1], obs_array[3]);
-   minIndex = 0;
-   float mina = obs_array[minIndex];
-   for (int i=1; i < 4; i++){
-      if (mina > cm[i]){
-          mina = cm[i];
-          minIndex = i;
-       }
-   }
-   minDistance = cm[minIndex];
-   
+  
    // If the closest object is too close, then get ready to back up.
    //if (minDistance < backupSensorThreshold) nextMove = "Backup";
   
@@ -132,21 +121,22 @@ void decide_direction() {
 			nextTurn = -1; }
           }
           //Random left or right.
-
+           
           // Keep track of the last turn.
           if (nextTurn == -1) 
               lastMove = "Left";
           else 
               lastMove = "Right";
-
+          
 	  if (nextTurn == -1) {
 	      body_lturn();
-	      delay(325);     //was 1500, 700, 225 - calc at 275 change to 325
+	      delay(275);     //was 1500, 700, 225 - calc at 275 change to 325
 	      brake();
 	   } else {
 	      body_rturn();
-	      delay(325);     //was 1500, 700, 225 - calc at 275 change to 325
+	      delay(275);     //was 1500, 700, 225 - calc at 275 change to 325
 	      brake(); }
+
           return;
         }
 		
@@ -156,7 +146,8 @@ void decide_direction() {
        lastMove = "Straight";
 
        while(cm[3] > fowardheadThreshold && cm[0] > sideSensorThreshold && 
-                 cm[1] > lcThreshold && cm[2] > sideSensorThreshold) {
+                 cm[1] > lcThreshold && cm[2] > sideSensorThreshold &&
+                 leftIRdistance > lcThreshold && rightIRdistance > lcThreshold) {
 
           moveForward();
            
@@ -190,4 +181,5 @@ void decide_direction() {
     }
    return;
 }   
+
 
