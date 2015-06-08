@@ -63,7 +63,7 @@ void Select_Direction() {
     for(i =0; i <= N; i++)
     {
       headservo.write(i*angle);               
-      delay(550);                             
+      delay(250);    //was 550                         
 
       /////////////////////////////////////////////////////////
       //
@@ -284,13 +284,13 @@ void Select_Direction() {
         fit_time = 0.000006*pow(rebound_angle,3)-0.0081*pow(rebound_angle,2)+7.1036*rebound_angle+84.232;
         delay_time = ceil(fit_time);
         telem << "Curve Fit (CW): " << fit_time << endl;
-        if(delay_time < 50) delay_time = 50;
+        if(delay_time < 150) delay_time = 150;
         body_rturn(); 
       } else {
         fit_time = -0.00001*pow(rebound_angle,3)-0.015*pow(rebound_angle,2)-9.7223*rebound_angle+32.217;
         delay_time = ceil(fit_time);
         telem << "Curve Fit (CCW): " << fit_time << endl;      
-        if(delay_time < 50) delay_time = 50;  // was 50
+        if(delay_time < 150) delay_time = 150;  // was 50
         body_lturn();
       }
   

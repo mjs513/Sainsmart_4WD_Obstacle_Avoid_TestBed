@@ -68,9 +68,10 @@ void read_sensors() {
      }
     
     leftIRdistance = leftIRaverage(3);
-    rightIRdistance = rightIRaverage(3);
+    //rightIRdistance = rightIRaverage(3);
     
-    telem << "IR Distances: " << leftIRdistance << " -- " << rightIRdistance << endl;
+    //telem << "IR Distances: " << leftIRdistance << " -- " << rightIRdistance << endl;
+    telem << "IR Distances: " << leftIRdistance << " -- " << endl;
     
     //compass_update();	
 
@@ -141,7 +142,7 @@ int leftIRaverage(int average_count) {
 	return(sum/average_count);  
 }
 	
-int rightIRaverage(int average_count) {
+/*int rightIRaverage(int average_count) {
 	int sum = 0;
 	for (int i=0; i<average_count; i++) {
 		int sensor_value = analogRead(rightIRsensor);  //read the sensor value
@@ -150,4 +151,4 @@ int rightIRaverage(int average_count) {
 	}
 	return(sum/average_count);  
 }
-
+*/
