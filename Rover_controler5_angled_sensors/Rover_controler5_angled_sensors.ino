@@ -84,6 +84,10 @@
 
 Yamartino yamartino(compass_avg_cnt);
 LSM303 compass;
+float roll, pitch;
+float fXg = 0;
+float fYg = 0;
+float fZg = 0;
 
 Servo headservo;
 
@@ -100,14 +104,20 @@ const int obsDist = 47;
 const int sidedistancelimit = 45;
 unsigned int cm_head[5];
 
-int leftIRdistance, rightIRdistance;
+int frtIRdistance, rearIRdistance;
 
-int fowardheadThreshold = 52;  		//30.48,41,51,52		headservo - obs[3]
-int lcThreshold = 50; 			//40.64,38,45,50      sonarlc obs[1]
-int lcIRthreshold = 40;  //was 45
-int sideSensorThreshold = 45;		//50.8,38,45,41,45,36	sonarll (points to right) obs[0]
-//							sonarlr (points to left) obs[2]
-int backupSensorThreshold = 35;		//17.78 - not implemented yet
+//int fowardheadThreshold = 52;  		//30.48,41,51,52		headservo - obs[3]
+//int lcThreshold = 50; 			//40.64,38,45,50      sonarlc obs[1]
+//int lcIRthreshold = 40;  //was 45
+//int sideSensorThreshold = 45;		//50.8,38,45,41,45,36	sonarll (points to right) obs[0]
+//
+
+int fowardheadThreshold = 49; 
+int lcThreshold = 47; 
+int lcIRthreshold = 47;  //was 45
+int sideSensorThreshold = 42;
+
+int backupSensorThreshold = 17;		//17.78 - not implemented yet
 
 int minDistance, nextTurn;
 String nextMove, lastMove, turnDirection;
@@ -219,6 +229,7 @@ void loop() {
     case 'f' : 
       telem.println("Rolling Forward!");
       moveForward();
+      /*  Read encoders
       rpm_r_index = 0;  rpm_l_index = 0;
       rpm_r_avg = 0;    rpm_l_avg = 0;
       currentTime = millis();
@@ -240,7 +251,9 @@ void loop() {
           //telem.println();
           telem << "Average (L/R):  " << rpm_l_avg/rpm_l_index << " / " << rpm_r_avg/rpm_r_index << endl;
         }
-          
+         */
+      currentTime = millis();
+      while(!IsTime(&currentTime, interval)){         
          //Cycle through obstacle avoidance sensors for emergency stop
          read_sensors();
          oneSensorCycle();
@@ -250,7 +263,10 @@ void loop() {
            return; 
          }
       }
-      telem.println(rpm_l_avg/rpm_l_index); telem.println(rpm_r_avg/rpm_r_index); telem.println();
+      
+      // Print encoder rpm
+      //telem.println(rpm_l_avg/rpm_l_index); telem.println(rpm_r_avg/rpm_r_index); telem.println();
+      
       brake();
       delay(1000);
       break;

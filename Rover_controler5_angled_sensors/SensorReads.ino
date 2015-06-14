@@ -22,9 +22,9 @@
 //============================================================================
 
 void oneSensorCycle() { // Sensor ping cycle complete, do something with the results.
-  telem << "Distance: ";
+  //telem << "Distance: ";
   for (uint8_t i = 0; i < SONAR_NUM; i++) {
-    telem <<  cm[i] << "cm, ";
+    //telem <<  cm[i] << "cm, ";
    }
   telem << endl;
   
@@ -67,13 +67,14 @@ void read_sensors() {
       if(cm[i] == 0) cm[i] = MAX_DISTANCE;
      }
     
-    leftIRdistance = leftIRaverage(3);
-    //rightIRdistance = rightIRaverage(3);
+    frtIRdistance = frtIRaverage(3);
+    rearIRdistance = rearIRaverage(3);
     
     //telem << "IR Distances: " << leftIRdistance << " -- " << rightIRdistance << endl;
-    telem << "IR Distances: " << leftIRdistance << " -- " << endl;
+    //telem << "IR Distances: " << leftIRdistance << " -- " << endl;
     
     //compass_update();	
+    getInclination();
 
 }
 
@@ -119,7 +120,8 @@ void head_distance() {
     delay(PING_INTERVAL);
 
     headservo.write(head_fwd);
-
+    
+  /*
   for (uint8_t i = 0; i < 5; i++) {
     telem.print(i);
     telem.print("=");
@@ -127,12 +129,13 @@ void head_distance() {
     telem.print("cm Head");
   }
   telem.println();
+  */
   
   return;
 }
 
 	
-int leftIRaverage(int average_count) {
+int frtIRaverage(int average_count) {
 	int sum = 0;
 	for (int i=0; i<average_count; i++) {
 		int sensor_value = analogRead(leftIRsensor);  //read the sensor value
@@ -142,7 +145,7 @@ int leftIRaverage(int average_count) {
 	return(sum/average_count);  
 }
 	
-/*int rightIRaverage(int average_count) {
+int rearIRaverage(int average_count) {
 	int sum = 0;
 	for (int i=0; i<average_count; i++) {
 		int sensor_value = analogRead(rightIRsensor);  //read the sensor value
@@ -151,4 +154,25 @@ int leftIRaverage(int average_count) {
 	}
 	return(sum/average_count);  
 }
-*/
+
+void getInclination() {
+      compass.read();
+      
+      float pitch, roll, Xg, Yg, Zg;
+
+      Zg = compass.a.y;
+      Yg = compass.a.z;
+      Xg = compass.a.x;
+  
+      //Low Pass Filter
+      fXg = Xg * alpha + (fXg * (1.0 - alpha));
+      fYg = Yg * alpha + (fYg * (1.0 - alpha));
+      fZg = Zg * alpha + (fZg * (1.0 - alpha)); 
+      
+      //Roll & Pitch Equations
+      roll  = 90+(atan2(fYg, -fZg)*180.0)/M_PI;  //reverse signs from An3461
+      pitch = (atan2(fXg, sqrt(fYg*fYg + fZg*fZg))*180.0)/M_PI; 
+
+      telem << endl << pitch << ",  " << roll << endl;
+
+}

@@ -49,6 +49,7 @@ const int head_rdiag = 135;
 
 //compass reads
 const int compass_avg_cnt = 20;
+const float alpha = 0.5;
 
 //Bubble Rebound Parameters
 const float V = 21;

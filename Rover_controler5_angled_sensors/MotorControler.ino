@@ -32,7 +32,7 @@ void moveForward()
     //motorB(2, Speed);  //have motor B turn clockwise at % speed
     motorA(2, motorSpeed_right*0.75);  //have motor A turn clockwise at % speed, , call motor control method
     motorB(2, motorSpeed_left*0.75);  //have motor B turn clockwise at % speed
-    telem.println("Forward");
+    //telem.println("Forward");
 }
 
 //void moveBackward(int Speed)
@@ -40,34 +40,34 @@ void moveBackward()
 {
     //motorA(1, Speed);  //have motor A turn counterclockwise 
     //motorB(1, Speed);  //have motor B turn counterclockwise
-    motorA(1, motorSpeed_right);  //have motor A turn counterclockwise 
-    motorB(1, motorSpeed_left);  //have motor B turn counterclockwise
-    telem.println("Backward");
+    motorA(1, motorSpeed_right * 0.75);  //have motor A turn counterclockwise 
+    motorB(1, motorSpeed_left  * 0.75);  //have motor B turn counterclockwise
+    //telem.println("Backward");
 }
 void body_rturn()
 {
    motorA(1, motorSpeed_right);  //have motor A turn counterclockwise 
    motorB(2, motorSpeed_left);  //have motor B turn clockwise 
-   telem.println("Right");
+   //telem.println("Right");
 }
    void body_lturn()
 {
    motorA(2, motorSpeed_right);  //have motor A turn clockwise
    motorB(1, motorSpeed_left);  //have motor B turn counterclockwise 
-   telem.println("Left");
+   //telem.println("Left");
 }
 
 void brake()
 {
     motorA(3, 100);  //brake motor A with 100% braking power, call motor control method
     motorB(3, 100);  //brake motor B with 100% braking power, call motor control method
-    telem.println("Brake");
+    //telem.println("Brake");
 }
 
 void coastBrake() {
     motorA(3, 50);  //coast motor A with 100% braking power, call motor control method
     motorB(3, 50);  //brake motor B with 100% braking power, call motor control method
-    telem.println(" Coast Brake");
+    //telem.println(" Coast Brake");
 }  
 
 //******************   Motor A control   *******************
@@ -84,7 +84,7 @@ void motorA(int mode, int percent)
   {
     case 0:  //disable/coast
       digitalWrite(ENA, LOW);  //set enable low to disable A
-      telem.println("Disable/coast A");
+      //telem.println("Disable/coast A");
       break;
       
     case 1:  //turn clockwise
@@ -96,7 +96,7 @@ void motorA(int mode, int percent)
       
       //use pwm to control motor speed through enable pin
       analogWrite(ENA, duty);  
-      telem.println("turn motor A clockwise");
+      //telem.println("turn motor A clockwise");
       
       break;
       
@@ -109,7 +109,7 @@ void motorA(int mode, int percent)
       
       //use pwm to control motor speed through enable pin
       analogWrite(ENA, duty);  
-      telem.println("turn motor A counter-clockwise");
+      //telem.println("turn motor A counter-clockwise");
       
       break;
       
@@ -123,7 +123,7 @@ void motorA(int mode, int percent)
       //use pwm to control motor braking power 
       //through enable pin
       analogWrite(ENA, duty);  
-      telem.println("brake motor A");
+      //telem.println("brake motor A");
       
       break;
   }
@@ -140,7 +140,7 @@ void motorA(int mode, int percent)
   {
     case 0:  //disable/coast
       digitalWrite(ENB, LOW);  //set enable low to disable B
-      telem.println("Disable/coast B");
+      //telem.println("Disable/coast B");
       break;
       
     case 1:  //turn clockwise
@@ -152,8 +152,7 @@ void motorA(int mode, int percent)
       
       //use pwm to control motor speed through enable pin
       analogWrite(ENB, duty); 
-           telem.println("turn motor B clockwise"); 
-      
+      //telem.println("turn motor B clockwise"); 
       break;
       
     case 2:  //turn counter-clockwise
@@ -165,7 +164,7 @@ void motorA(int mode, int percent)
       
       //use pwm to control motor speed through enable pin
       analogWrite(ENB, duty);  
-       telem.println("turn motor B counter-clockwise");
+       //telem.println("turn motor B counter-clockwise");
       
       break;
       
@@ -179,7 +178,7 @@ void motorA(int mode, int percent)
       //use pwm to control motor braking power 
       //through enable pin
       analogWrite(ENB, duty);  
-      telem.println("brake motor B");      
+      //telem.println("brake motor B");      
       break;
   }
 }

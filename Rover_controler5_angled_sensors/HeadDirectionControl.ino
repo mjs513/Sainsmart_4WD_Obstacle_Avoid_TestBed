@@ -28,8 +28,7 @@ void decide_direction_head() {
   head_distance();
   
   if(obs_array[0] == 1 && obs_array[1] == 1 && obs_array[2] == 1 && obs_array[3] == 1 && obs_array[4] == 1) {
-       telem.println("All Directions Blocked - Rebound action");
-       moveBackward();
+       //telem.println("All Directions Blocked - Rebound action");
        moveBackward();
        delay(500);	   
        return;

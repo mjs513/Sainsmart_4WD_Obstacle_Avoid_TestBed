@@ -26,37 +26,37 @@ void decide_direction() {
    // No forward obstacles
    if(cm[3] > fowardheadThreshold && cm[0] > sideSensorThreshold && 
                  cm[1] > lcThreshold && cm[2] > sideSensorThreshold &&
-		 leftIRdistance > lcThreshold) {
+		 frtIRdistance > lcThreshold) {
 			nextMove = "Straight";
-		        telem << "(DC) Next Move Straight" << endl;
+		        //telem << "(DC) Next Move Straight" << endl;
                  }
 				 
    // If everything is blocked in the forward direction lets backupSensorThreshold
    // and run the Bubble rebound/VFH routing
    else if((cm[0] < sideSensorThreshold && cm[2] < sideSensorThreshold && 
                  cm[3] < fowardheadThreshold && cm[1] < lcThreshold  )){ //|| 
-                 //leftIRdistance < lcIRthreshold){
+                 //frtIRdistance < lcIRthreshold){
                         nextMove = "Backup";
                         brake();
-                        telem << "(DC) Everything blocked Next Move Backup" << endl;
+                        //telem << "(DC) Everything blocked Next Move Backup" << endl;
 		  }
 
    // Do any of the front facing range sensors detect an obstacle closer than their
    // threshold?  If so, then prepare to turn left or right.
-   else if(cm[3] < fowardheadThreshold || cm[1] < lcThreshold || leftIRdistance < lcIRthreshold)
+   else if(cm[3] < fowardheadThreshold || cm[1] < lcThreshold || frtIRdistance < lcIRthreshold)
    {
       moveBackward();
       delay(250);
       brake();      
       nextMove = "LeftRight";
-      telem << "(DC) Next Move LeftRight [fwd sensors blocked - backup first]" << endl;
+      //telem << "(DC) Next Move LeftRight [fwd sensors blocked - backup first]" << endl;
    }
 
    // What about the two angled looking  detectors?
    else if (cm[0] < sideSensorThreshold && cm[2] <  sideSensorThreshold)
    {
        nextMove = "LeftRight";
-       telem << "(DC) Next Move LeftRight [both side sensors blocked]" << endl;
+       //telem << "(DC) Next Move LeftRight [both side sensors blocked]" << endl;
    }
    
    //
@@ -66,7 +66,7 @@ void decide_direction() {
    else if (cm[2] < sideSensorThreshold)
    {
       nextMove = "Right";
-      telem << "(DC) Next Move Right" << endl;
+      //telem << "(DC) Next Move Right" << endl;
    }
    //
    // if right facing sensor (left side pointing to the right)
@@ -75,7 +75,7 @@ void decide_direction() {
    else if(cm[0] < sideSensorThreshold)
    {
       nextMove = "Left";
-      telem << "(DC) Next Move Left" << endl;
+      //telem << "(DC) Next Move Left" << endl;
    }
 
    // Reset the closest obstacle distance to a large value.
@@ -96,12 +96,18 @@ void decide_direction() {
           // Keep track of the last action.
           lastMove = "Backup";
 		  
-          moveBackward();
-          delay(250);
-          brake();
-          //coastBrake();
-          //delay(250);	//delay half a second
-		  
+          if(rearIRdistance > backupSensorThreshold) {
+            moveBackward();
+            delay(250);
+            brake();
+            //coastBrake();
+            //delay(250);	//delay half a second
+          } else {
+            moveBackward();
+            delay(12);
+            brake();
+          }
+          
 	  // Run Bubble Rebound Algorithm
           Select_Direction();
 	  
@@ -155,7 +161,7 @@ void decide_direction() {
 
        while(cm[3] > fowardheadThreshold && cm[0] > sideSensorThreshold && 
                  cm[1] > lcThreshold && cm[2] > sideSensorThreshold &&
-                 leftIRdistance > lcIRthreshold) {
+                 frtIRdistance > lcIRthreshold) {
 
           moveForward();
            
@@ -165,6 +171,7 @@ void decide_direction() {
         
           //while(!IsTime(&currentTime, interval))
           //Read encoders and calculate RPM
+          /*
           encoder_l();
           encoder_r();
           if(rpm_r !=0) {
@@ -181,8 +188,9 @@ void decide_direction() {
             //telem.println();
           telem << "(DC) Average (L/R):  " << rpm_l_avg/rpm_l_index << " / " << rpm_r_avg/rpm_r_index << endl;
           }
-
-	  telem << endl << "(DC) End of Tests Updating Sensors" << endl;          
+          */
+          
+	  //telem << endl << "(DC) End of Tests Updating Sensors" << endl;          
           read_sensors();   
           oneSensorCycle();          
        }    
