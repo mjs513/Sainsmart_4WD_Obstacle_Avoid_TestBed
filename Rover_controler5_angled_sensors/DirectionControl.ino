@@ -143,13 +143,21 @@ void decide_direction() {
               lastMove = "Right";
           
 	  if (nextTurn == -1) {
-	      body_lturn();
-	      delay(325);     //was 1500, 700, 225 - calc at 275 change to 325
+              if(rightCounter == 0) {
+	        body_lturn();
+              } else {
+                body_rturn(); }
+	      delay(375);     //was 1500, 700, 225 - calc at 275 change to 325
 	      brake();
+              leftCounter = leftCounter + 1;
 	   } else {
-	      body_rturn();
-	      delay(325);     //was 1500, 700, 225 - calc at 275 change to 325
-	      brake(); }
+              if(leftCounter == 0) {
+	        body_rturn();
+              } else {
+                body_lturn(); }
+	      delay(375);     //was 1500, 700, 225 - calc at 275 change to 325
+	      brake(); 
+              rightCounter = rightCounter + 1; }
 
           //return;
         }
@@ -158,7 +166,12 @@ void decide_direction() {
        // If no obstacles are detected close by, keep going straight ahead.
        //moveForward();
        lastMove = "Straight";
-
+       
+       //reset counters after clearing obstacle
+       leftCounter = 0;
+       rightCounter = 0;
+       
+       //keep moving forward until next obstacle is found
        while(cm[3] > fowardheadThreshold && cm[0] > sideSensorThreshold && 
                  cm[1] > lcThreshold && cm[2] > sideSensorThreshold &&
                  frtIRdistance > lcIRthreshold) {

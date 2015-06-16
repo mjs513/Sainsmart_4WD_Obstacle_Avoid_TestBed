@@ -105,11 +105,12 @@ const int sidedistancelimit = 45;
 unsigned int cm_head[5];
 
 int frtIRdistance, rearIRdistance;
+int leftCounter, rightCounter;
 
-//int fowardheadThreshold = 52;  		//30.48,41,51,52		headservo - obs[3]
-//int lcThreshold = 50; 			//40.64,38,45,50      sonarlc obs[1]
+//int fowardheadThreshold = 52;  	//30.48,41,51,52      headservo - obs[3]
+//int lcThreshold = 50; 	        //40.64,38,45,50      sonarlc obs[1]
 //int lcIRthreshold = 40;  //was 45
-//int sideSensorThreshold = 45;		//50.8,38,45,41,45,36	sonarll (points to right) obs[0]
+//int sideSensorThreshold = 45;	        //50.8,38,45,41,45,36	sonarll (points to right) obs[0]
 //
 
 int fowardheadThreshold = 49; 
