@@ -30,8 +30,8 @@ void moveForward()
     
     //motorA(2, Speed);  //have motor A turn clockwise at % speed, , call motor control method
     //motorB(2, Speed);  //have motor B turn clockwise at % speed
-    motorA(2, motorSpeed_right*0.75);  //have motor A turn clockwise at % speed, , call motor control method
-    motorB(2, motorSpeed_left*0.75);  //have motor B turn clockwise at % speed
+    motorA(2, motorSpeed_right*0.73);  //have motor A turn clockwise at % speed, , call motor control method
+    motorB(2, motorSpeed_left*0.73);  //have motor B turn clockwise at % speed
     //telem.println("Forward");
 }
 

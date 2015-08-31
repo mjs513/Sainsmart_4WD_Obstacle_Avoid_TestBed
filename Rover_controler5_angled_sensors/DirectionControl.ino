@@ -147,7 +147,7 @@ void decide_direction() {
 	        body_lturn();
               } else {
                 body_rturn(); }
-	      delay(375);     //was 1500, 700, 225 - calc at 275 change to 325
+	      delay(400);     //was 1500, 700, 225 - calc at 275 change to 325
 	      brake();
               leftCounter = leftCounter + 1;
 	   } else {

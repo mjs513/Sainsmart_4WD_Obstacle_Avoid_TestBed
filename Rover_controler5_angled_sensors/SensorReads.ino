@@ -26,7 +26,7 @@ void oneSensorCycle() { // Sensor ping cycle complete, do something with the res
   for (uint8_t i = 0; i < SONAR_NUM; i++) {
     //telem <<  cm[i] << "cm, ";
    }
-  telem << endl;
+  //telem << endl;
   
   for (uint8_t i = 0; i < SONAR_NUM; i++) {
     if(cm[i] < obsDist) {
@@ -173,6 +173,6 @@ void getInclination() {
       roll  = 90+(atan2(fYg, -fZg)*180.0)/M_PI;  //reverse signs from An3461
       pitch = (atan2(fXg, sqrt(fYg*fYg + fZg*fZg))*180.0)/M_PI; 
 
-      telem << endl << pitch << ",  " << roll << endl;
+      //telem << endl << pitch << ",  " << roll << endl;
 
 }
