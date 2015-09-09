@@ -23,9 +23,9 @@
 
 void oneSensorCycle() { // Sensor ping cycle complete, do something with the results.
   //telem << "Distance: ";
-  for (uint8_t i = 0; i < SONAR_NUM; i++) {
-    //telem <<  cm[i] << "cm, ";
-   }
+  //for (uint8_t i = 0; i < SONAR_NUM; i++) {
+  //  telem <<  cm[i] << "cm, ";
+  // }
   //telem << endl;
   
   for (uint8_t i = 0; i < SONAR_NUM; i++) {
@@ -33,9 +33,9 @@ void oneSensorCycle() { // Sensor ping cycle complete, do something with the res
       obs_array[i] = 1;
     } else {
       obs_array[i] = 0;} 
-    //telem << obs_array[i] << ", ";
+   // telem << obs_array[i] << ", ";
   }
-  //telem << endl << endl;
+  //telem << endl;
   
 }
 
@@ -70,7 +70,7 @@ void read_sensors() {
     frtIRdistance = frtIRaverage(3);
     rearIRdistance = rearIRaverage(3);
     
-    //telem << "IR Distances: " << leftIRdistance << " -- " << rightIRdistance << endl;
+    //telem << "IR Distances: " << frtIRdistance << " -- " << rearIRdistance << endl;
     //telem << "IR Distances: " << leftIRdistance << " -- " << endl;
     
     //compass_update();	
@@ -90,6 +90,7 @@ void compass_update() {
       //telem.println("");
     }
     yar_heading = yamartino.averageHeading();
+    //telem << "Changed heading: " << yar_heading << endl;
    
   }  
 
@@ -139,7 +140,7 @@ int frtIRaverage(int average_count) {
 	int sum = 0;
 	for (int i=0; i<average_count; i++) {
 		int sensor_value = analogRead(leftIRsensor);  //read the sensor value
-		int distance_cm = pow(3027.4/sensor_value, 1.2134); //convert readings to distance(cm)
+		int distance_cm = pow(2649.3/sensor_value, 1.2531); //convert readings to distance(cm)
 		sum = sum + distance_cm;
 	}
 	return(sum/average_count);  
@@ -149,7 +150,7 @@ int rearIRaverage(int average_count) {
 	int sum = 0;
 	for (int i=0; i<average_count; i++) {
 		int sensor_value = analogRead(rightIRsensor);  //read the sensor value
-		int distance_cm = pow(3027.4/sensor_value, 1.2134); //convert readings to distance(cm)
+		int distance_cm = pow(2471.5/sensor_value, 1.3123); //convert readings to distance(cm)
 		sum = sum + distance_cm;
 	}
 	return(sum/average_count);  

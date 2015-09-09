@@ -22,16 +22,18 @@
 //============================================================================
 
 #define telem Serial3
-//#define telem Serial3
+//#define telem Serial3 // bluetooth
 
 //Enable 400Khz I2C bus speed
 const boolean fastmode = true;
 
-//int motorSpeed_right = 87;      //define motor speed parameter which will be mapped as a percentage value
-//int motorSpeed_left = 75;      // these are reversed right is left when looking from behind
-const int motorSpeed_right = 79;     //define motor speed parameter which will be mapped as a percentage value
-const int motorSpeed_left = 79;      // offset required for differences in motor speed,82
-const int turnSpeed = 85;             //define turning speed parameter, was 75
+//int motorSpeed_right = 87;        //define motor speed parameter which will be mapped as a percentage value
+//int motorSpeed_left = 75;         // these are reversed right is left when looking from behind
+const int motorSpeed_right = 78;    //define motor speed parameter which will be mapped as a percentage value
+                                    // with canakit seems like i have to increase this value
+const int motorSpeed_left = 76;     // offset required for differences in motor speed,82, (84/86)
+const int turnSpeed = 75;           //define turning speed parameter, was 75, was 87
+                                    //change due to canakit driver
 
 //sets up servo angles
 const int head_fwd = 90; 
@@ -41,11 +43,12 @@ const int head_ldiag = 45;
 const int head_rdiag = 135;
 
 #define SONAR_NUM     4    			// Number or sensors.
-#define MAX_DISTANCE 200   			// Maximum distance (in cm) to ping.
-#define PING_INTERVAL 50   			// Milliseconds between sensor pings (29ms is about the min to avoid cross-sensor echo).
+#define MAX_DISTANCE 150   			// Maximum distance (in cm) to ping.
+#define PING_INTERVAL 40   			// Milliseconds between sensor pings (29ms is about the min to avoid cross-sensor echo).
                                           // was set to 33
 // the interval in mS 
 #define interval 7500    //was 7500
+#define interval1 2000
 
 //compass reads
 const int compass_avg_cnt = 20;
@@ -55,8 +58,8 @@ const float alpha = 0.5;
 const float V = 21;
 const float Ki = 0.2;
 
-const int N = 12;  //was 10, 12 for 12 readings
-const int angle = 15;  //was 20 degrees
+const int N = 24;  //was 10, 12 for 12 readings, was 12
+const int angle = 7.5;  //was 20 degrees, was 15 for 12
 
 
 

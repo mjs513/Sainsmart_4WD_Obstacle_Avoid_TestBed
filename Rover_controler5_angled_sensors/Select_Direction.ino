@@ -85,7 +85,7 @@ void Select_Direction() {
       // Essentially creating a binary histogram of obstacles
       // 
       /////////////////////////////////////////////////////////
-
+      //telem << "GAP TEST:  ";
       if(sonar_dist[i] <= obsDist) 
         Hist[i] = 1;
        else
@@ -161,7 +161,7 @@ void Select_Direction() {
       Delta_Angle = border[i].second - border[i].first + angle;
       //telem << "DELTA ANGLE: " << Delta_Angle << endl << endl;
     
-      if (fabs(Delta_Angle) < 60)   // was 60
+      if (fabs(Delta_Angle) < 60)   // was 60 ??????????????
       {
         ////////////////////////////////////////////////////
         //
@@ -233,7 +233,7 @@ void Select_Direction() {
       }
    
       float rebound_angle = rebound[maxIndex].first - 90;
-      ///telem << "Best Angle:  " << rebound_angle << endl;
+      //telem << "Best Angle:  " << rebound_angle << endl;
 
       //////////////////////////////////////////////////
       //
@@ -267,7 +267,7 @@ void Select_Direction() {
       angle_delta = abs(new_heading - yar_heading);
       clockwise = (rebound_angle >= 0.0f);
   
-      ///telem << "New Heading: " << new_heading << "  Clockwise: " << clockwise << endl;
+      //telem << "New Heading: " << new_heading << "  Clockwise: " << clockwise << endl;
       //telem << "Angle delta: " << angle_delta << endl;
       ///telem << endl;
 
@@ -301,7 +301,7 @@ void Select_Direction() {
       compass_update();
       //telem << "New Heading: " << yar_heading << endl;
     } else {
-      telem << "No viable (wide) gap !" << endl;
+      //telem << "No viable (wide) gap !" << endl;
       
       // Do a clockwise 180 and return
       float rebound_angle = 180;

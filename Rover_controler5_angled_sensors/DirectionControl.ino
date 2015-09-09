@@ -134,6 +134,8 @@ void decide_direction() {
 	      } else {
 			nextTurn = -1; }
           }
+          
+          
           //Random left or right.
            
           // Keep track of the last turn.
@@ -178,13 +180,13 @@ void decide_direction() {
 
           moveForward();
            
-          rpm_r_index = 0;  rpm_l_index = 0;
-          rpm_r_avg = 0;    rpm_l_avg = 0;
+          //rpm_r_index = 0;  rpm_l_index = 0;
+          //rpm_r_avg = 0;    rpm_l_avg = 0;
           //currentTime = millis();
         
-          //while(!IsTime(&currentTime, interval))
+          /*while(!IsTime(&currentTime, interval)){
           //Read encoders and calculate RPM
-          /*
+          
           encoder_l();
           encoder_r();
           if(rpm_r !=0) {
@@ -201,9 +203,9 @@ void decide_direction() {
             //telem.println();
           telem << "(DC) Average (L/R):  " << rpm_l_avg/rpm_l_index << " / " << rpm_r_avg/rpm_r_index << endl;
           }
-          */
+          }*/
           
-	  //telem << endl << "(DC) End of Tests Updating Sensors" << endl;          
+	  //telem << "(DC) End of Tests Updating Sensors" << endl << endl;          
           read_sensors();   
           oneSensorCycle();          
        }    

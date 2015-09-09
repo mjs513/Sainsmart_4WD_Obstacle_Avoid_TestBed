@@ -24,7 +24,7 @@
 //**********************************************************
 //ecoder rpm read
 void encoder_l() { 
-   if (half_revolutions_l >= 20) { //was 40
+   if (half_revolutions_l >= 10) { //was 40, 20
      //Update RPM every 20 counts, increase this for better RPM resolution,
      //decrease for faster update
      rpm_l = 1000/(millis() - timeold_l)*half_revolutions_l; //3.75 Dagu
@@ -35,7 +35,7 @@ void encoder_l() {
 }
 
 void encoder_r() { 
-    if (half_revolutions_r >= 20) { 
+    if (half_revolutions_r >= 10) { 
      //Update RPM every 20 counts, increase this for better RPM resolution,
      //decrease for faster update
      rpm_r = 1000/(millis() - timeold_r)*half_revolutions_r;

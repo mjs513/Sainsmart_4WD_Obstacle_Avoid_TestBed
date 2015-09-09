@@ -113,10 +113,10 @@ int leftCounter, rightCounter;
 //int sideSensorThreshold = 45;	        //50.8,38,45,41,45,36	sonarll (points to right) obs[0]
 //
 
-int fowardheadThreshold = 49; 
-int lcThreshold = 47; 
-int lcIRthreshold = 47;  //was 45
-int sideSensorThreshold = 42;
+int fowardheadThreshold = 40; //was 49. was 39
+int lcThreshold = 37;         // was 47 was 37
+int lcIRthreshold = 37;  //was 45, last 47 was 37
+int sideSensorThreshold = 40; //was 42 was 32
 
 int backupSensorThreshold = 17;		//17.78 - not implemented yet
 
@@ -143,6 +143,7 @@ boolean clockwise;
  unsigned int rpm_r_avg;
  unsigned int rpm_r_index;
  unsigned long timeold_r;
+
  
 void setup() {
     telem.begin(9600);
@@ -208,7 +209,9 @@ void setup() {
     half_revolutions_r = 0;
     rpm_r = 0;
     timeold_r = 0;
-  
+
+    analogReference(DEFAULT);  //INTERNAL1V1 INTERNAL2V56
+
     // headservo interface
     headservo.attach(HeadServopin);
     headservo.write(head_fwd);
@@ -230,11 +233,11 @@ void loop() {
     case 'f' : 
       telem.println("Rolling Forward!");
       moveForward();
-      /*  Read encoders
+      //  Read encoders
       rpm_r_index = 0;  rpm_l_index = 0;
       rpm_r_avg = 0;    rpm_l_avg = 0;
       currentTime = millis();
-      while(!IsTime(&currentTime, interval)){
+      while(!IsTime(&currentTime, interval1)){
         //Read encoders and calculate RPM
          encoder_l();
          encoder_r();
@@ -252,8 +255,19 @@ void loop() {
           //telem.println();
           telem << "Average (L/R):  " << rpm_l_avg/rpm_l_index << " / " << rpm_r_avg/rpm_r_index << endl;
         }
-         */
-      currentTime = millis();
+
+        int csbValue = 0;
+              
+        // read the input on analog pin 4:
+        for(int ij = 0; ij < 10; ij++){
+          csbValue = csbValue + analogRead(A4); }
+        // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):
+        float voltage = (csbValue/10) * (1.1 / 1023.0)/1.65;
+        // print out the value you read:
+        telem << "CurrentSense Left:  " << _FLOAT(voltage,6) << endl;
+      } 
+  
+      //currentTime = millis();
       while(!IsTime(&currentTime, interval)){         
          //Cycle through obstacle avoidance sensors for emergency stop
          read_sensors();
@@ -264,7 +278,7 @@ void loop() {
            return; 
          }
       }
-      
+   
       // Print encoder rpm
       //telem.println(rpm_l_avg/rpm_l_index); telem.println(rpm_r_avg/rpm_r_index); telem.println();
       
@@ -326,7 +340,7 @@ void loop() {
     delay(1);  
     telem.println("I'm Ready to receive telem Commands![f, b, r, l, s, t]"); // Tell us I"m ready
   }
-             
+      
   if(roam == 0){ 
       //just listen for telem commands and wait
       }
