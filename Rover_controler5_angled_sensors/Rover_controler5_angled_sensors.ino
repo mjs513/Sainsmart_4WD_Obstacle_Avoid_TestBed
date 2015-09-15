@@ -113,10 +113,10 @@ int leftCounter, rightCounter;
 //int sideSensorThreshold = 45;	        //50.8,38,45,41,45,36	sonarll (points to right) obs[0]
 //
 
-int fowardheadThreshold = 40; //was 49. was 39
-int lcThreshold = 37;         // was 47 was 37
-int lcIRthreshold = 37;  //was 45, last 47 was 37
-int sideSensorThreshold = 40; //was 42 was 32
+int fowardheadThreshold = 39; //was 49
+int lcThreshold = 37;         // was 47
+int lcIRthreshold = 37;  //was 45, last 47
+int sideSensorThreshold = 32; //was 42
 
 int backupSensorThreshold = 17;		//17.78 - not implemented yet
 
@@ -146,9 +146,10 @@ boolean clockwise;
 
  
 void setup() {
-    telem.begin(9600);
+    telem.begin(57600);
+   
     Wire.begin();
-
+    
     //==================================================
     // Change I2C bus speed from 100KHz to 400KHz
     //==================================================

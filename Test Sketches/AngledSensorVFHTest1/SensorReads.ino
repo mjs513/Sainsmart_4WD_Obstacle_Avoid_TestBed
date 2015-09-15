@@ -22,20 +22,20 @@
 //============================================================================
 
 void oneSensorCycle() { // Sensor ping cycle complete, do something with the results.
-  /*telem << "Distance: ";
+  telem << "Distance: ";
   for (uint8_t i = 0; i < SONAR_NUM; i++) {
     telem <<  cm[i] << "cm, ";
    }
-  telem << endl; */
+  telem << endl;
   
   for (uint8_t i = 0; i < SONAR_NUM; i++) {
     if(cm[i] < obsDist) {
       obs_array[i] = 1;
     } else {
       obs_array[i] = 0;} 
-    //telem << obs_array[i] << ", ";
+    telem << obs_array[i] << ", ";
   }
-  //telem << endl;
+  telem << endl;
   
 }
 
@@ -44,14 +44,14 @@ void read_sensors() {
     //unsigned int uS = sonarll.ping();
     unsigned int uS = sonarll.ping_median();
     cm[0] = uS / US_ROUNDTRIP_CM;
-    delay(PING_INTERVAL);	
-	
+    delay(PING_INTERVAL);  
+  
     cm[1] = 0;  
     //uS = sonarlc.ping();
     uS = sonarlc.ping_median();
     cm[1] = uS / US_ROUNDTRIP_CM;
-    delay(PING_INTERVAL);	
-	
+    delay(PING_INTERVAL); 
+  
     cm[2] = 0;  
     //uS = sonarlr.ping();
     uS = sonarlr.ping_median();
@@ -67,13 +67,13 @@ void read_sensors() {
       if(cm[i] == 0) cm[i] = MAX_DISTANCE;
      }
     
-    frtIRdistance = frtIRaverage(3);
-    rearIRdistance = rearIRaverage(3);
+    //frtIRdistance = frtIRaverage(3);
+    //rearIRdistance = rearIRaverage(3);
     
     //telem << "IR Distances: " << frtIRdistance << " -- " << rearIRdistance << endl;
     //telem << "IR Distances: " << leftIRdistance << " -- " << endl;
     
-    //compass_update();	
+    //compass_update(); 
     getInclination();
 
 }
@@ -90,7 +90,7 @@ void compass_update() {
       //telem.println("");
     }
     yar_heading = yamartino.averageHeading();
-    //telem << "Changed heading: " << yar_heading << endl;
+    telem << "Changed heading: " << yar_heading << endl;
    
   }  
 
@@ -135,25 +135,25 @@ void head_distance() {
   return;
 }
 
-	
+  
 int frtIRaverage(int average_count) {
-	int sum = 0;
-	for (int i=0; i<average_count; i++) {
-		int sensor_value = analogRead(leftIRsensor);  //read the sensor value
-		int distance_cm = pow(2649.3/sensor_value, 1.2531); //convert readings to distance(cm)
-		sum = sum + distance_cm;
-	}
-	return(sum/average_count);  
+  int sum = 0;
+  for (int i=0; i<average_count; i++) {
+    int sensor_value = analogRead(leftIRsensor);  //read the sensor value
+    int distance_cm = pow(2649.3/sensor_value, 1.2531); //convert readings to distance(cm)
+    sum = sum + distance_cm;
+  }
+  return(sum/average_count);  
 }
-	
+  
 int rearIRaverage(int average_count) {
-	int sum = 0;
-	for (int i=0; i<average_count; i++) {
-		int sensor_value = analogRead(rightIRsensor);  //read the sensor value
-		int distance_cm = pow(2471.5/sensor_value, 1.3123); //convert readings to distance(cm)
-		sum = sum + distance_cm;
-	}
-	return(sum/average_count);  
+  int sum = 0;
+  for (int i=0; i<average_count; i++) {
+    int sensor_value = analogRead(rightIRsensor);  //read the sensor value
+    int distance_cm = pow(2471.5/sensor_value, 1.3123); //convert readings to distance(cm)
+    sum = sum + distance_cm;
+  }
+  return(sum/average_count);  
 }
 
 void getInclination() {
@@ -174,6 +174,6 @@ void getInclination() {
       roll  = 90+(atan2(fYg, -fZg)*180.0)/M_PI;  //reverse signs from An3461
       pitch = (atan2(fXg, sqrt(fYg*fYg + fZg*fZg))*180.0)/M_PI; 
 
-      //telem << endl << pitch << ",  " << roll << endl;
+      telem << endl << pitch << ",  " << roll << endl;
 
 }

@@ -21,7 +21,7 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //============================================================================
 
-#define telem Serial3
+#define telem Serial
 //#define telem Serial3 // bluetooth
 
 //Enable 400Khz I2C bus speed
@@ -42,9 +42,9 @@ const int head_rt = 180;
 const int head_ldiag = 45;
 const int head_rdiag = 135;
 
-#define SONAR_NUM     4    			// Number or sensors.
-#define MAX_DISTANCE 200   			// Maximum distance (in cm) to ping.
-#define PING_INTERVAL 40   			// Milliseconds between sensor pings (29ms is about the min to avoid cross-sensor echo).
+#define SONAR_NUM     4          // Number or sensors.
+#define MAX_DISTANCE 200        // Maximum distance (in cm) to ping.
+#define PING_INTERVAL 40        // Milliseconds between sensor pings (29ms is about the min to avoid cross-sensor echo).
                                           // was set to 33
 // the interval in mS 
 #define interval 7500    //was 7500
@@ -58,8 +58,8 @@ const float alpha = 0.5;
 const float V = 21;
 const float Ki = 0.2;
 
-const int N = 24;  //was 10, 12 for 12 readings, was 12
-const int angle = 7.5;  //was 20 degrees, was 15 for 12
+const int N = 20;  //was 10, 12 for 12 readings, was 12
+const int angle = 9;  //was 20 degrees, was 15 for 12
 
 
 

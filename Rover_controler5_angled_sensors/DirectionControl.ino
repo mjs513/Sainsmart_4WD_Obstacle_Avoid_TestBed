@@ -134,8 +134,6 @@ void decide_direction() {
 	      } else {
 			nextTurn = -1; }
           }
-          
-          
           //Random left or right.
            
           // Keep track of the last turn.
@@ -198,14 +196,13 @@ void decide_direction() {
              rpm_l_avg = rpm_l_avg + rpm_l;
           }
           if(rpm_l != 0 || rpm_r !=0) {
-            ///telem.print("(T) AVERAGE (L/R):  "); telem.print(rpm_l_avg/rpm_l_index); 
-            //telem.print("    "); telem.println(rpm_r_avg/rpm_r_index);
+            ///telem.print("(T) AVERAGE (L/R):  "); //telem.print(rpm_l_avg/rpm_l_index); 
+            //telem.print("    "); //telem.println(rpm_r_avg/rpm_r_index);
             //telem.println();
-          telem << "(DC) Average (L/R):  " << rpm_l_avg/rpm_l_index << " / " << rpm_r_avg/rpm_r_index << endl;
+          //telem << "(DC) Average (L/R):  " << rpm_l_avg/rpm_l_index << " / " << rpm_r_avg/rpm_r_index << endl;
           }
           }*/
-          
-	  //telem << "(DC) End of Tests Updating Sensors" << endl << endl;          
+	        //telem << "(DC) End of Tests Updating Sensors" << endl << endl;          
           read_sensors();   
           oneSensorCycle();          
        }    
